@@ -1,0 +1,573 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhatsApp Web Clone</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #d1d7db;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* MAIN APP */
+
+.app {
+    width: 1200px;
+    height: 92vh;
+    display: flex;
+    background: white;
+    overflow: hidden;
+    box-shadow: 0 5px 30px #0003;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 35%;
+    min-width: 280px;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
+
+.sidebar-header {
+    height: 65px;
+    padding: 12px 18px;
+    background: #f0f2f5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.header-icons {
+    display: flex;
+    gap: 20px;
+    color: #54656f;
+    font-size: 22px;
+}
+
+.search-area {
+    padding: 12px;
+    background: white;
+}
+
+.search-box {
+    background: #f0f2f5;
+    padding: 12px 15px;
+    border-radius: 8px;
+    color: #667781;
+    font-size: 13px;
+}
+
+.contacts {
+    overflow-y: auto;
+    flex: 1;
+}
+
+.contact {
+    height: 76px;
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    gap: 13px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.contact:hover {
+    background: #f5f6f6;
+}
+
+.contact.active {
+    background: #f0f2f5;
+}
+
+.contact img {
+    width: 49px;
+    height: 49px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.contact-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.contact-info h4 {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 7px;
+    color: #111;
+}
+
+.contact-info p {
+    color: #667781;
+    font-size: 13px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.contact-time {
+    font-size: 11px;
+    color: #667781;
+    align-self: flex-start;
+}
+
+/* CHAT */
+
+.chat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: #efeae2;
+}
+
+.chat-header {
+    height: 65px;
+    background: #f0f2f5;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    border-bottom: 1px solid #ddd;
+}
+
+.chat-header img {
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.chat-info {
+    flex: 1;
+}
+
+.chat-info h3 {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.chat-info p {
+    font-size: 12px;
+    color: #667781;
+    margin-top: 4px;
+}
+
+.chat-icons {
+    display: flex;
+    gap: 22px;
+    font-size: 21px;
+    color: #54656f;
+}
+
+/* MESSAGES */
+
+.messages {
+    flex: 1;
+    padding: 25px 7%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: #efeae2;
+    background-image:
+    radial-gradient(#d7d1c8 0.7px, transparent 0.7px);
+    background-size: 20px 20px;
+}
+
+.date-label {
+    background: #fff;
+    color: #667781;
+    padding: 8px 14px;
+    border-radius: 7px;
+    font-size: 11px;
+    align-self: center;
+    box-shadow: 0 1px 2px #0001;
+    margin-bottom: 8px;
+}
+
+.message {
+    max-width: 75%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #111;
+    box-shadow: 0 1px 1px #0002;
+    position: relative;
+}
+
+.received {
+    align-self: flex-start;
+    background: white;
+}
+
+.sent {
+    align-self: flex-end;
+    background: #d9fdd3;
+}
+
+.message-time {
+    font-size: 10px;
+    color: #667781;
+    text-align: right;
+    margin-top: 4px;
+}
+
+.ticks {
+    color: #53a7df;
+    font-size: 13px;
+}
+
+/* INPUT */
+
+.input-area {
+    height: 70px;
+    background: #f0f2f5;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 17px;
+}
+
+.input-icons {
+    display: flex;
+    gap: 17px;
+    font-size: 23px;
+    color: #54656f;
+}
+
+.fake-input {
+    flex: 1;
+    background: white;
+    padding: 15px 18px;
+    border-radius: 9px;
+    font-size: 14px;
+    color: #86939a;
+}
+
+.send-icon {
+    color: #54656f;
+    font-size: 24px;
+}
+
+/* EMPTY ICONS */
+
+.icon {
+    cursor: default;
+    user-select: none;
+}
+
+/* FOOTER */
+
+.watermark {
+    text-align: center;
+    padding: 10px;
+    background: #f0f2f5;
+    color: #86939a;
+    font-size: 10px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px) {
+
+    body {
+        height: 100dvh;
+    }
+
+    .app {
+        width: 100%;
+        height: 100dvh;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .chat {
+        display: none;
+    }
+
+    .sidebar-header {
+        height: 60px;
+    }
+
+    .contact {
+        height: 72px;
+    }
+
+    .contact img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .messages {
+        padding: 18px 12px;
+    }
+
+    .message {
+        max-width: 88%;
+    }
+
+    .chat-icons {
+        gap: 12px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="sidebar-header">
+
+        <img class="profile"
+        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop"
+        alt="Profile">
+
+        <div class="header-icons">
+            <span class="icon">◉</span>
+            <span class="icon">✉</span>
+            <span class="icon">⋮</span>
+        </div>
+
+    </div>
+
+    <div class="search-area">
+        <div class="search-box">
+            🔍 &nbsp; Search or start a new chat
+        </div>
+    </div>
+
+    <div class="contacts">
+
+        <div class="contact active">
+            <img src="https://i.pravatar.cc/100?img=12">
+            <div class="contact-info">
+                <h4>Ali Ahmed</h4>
+                <p>Hey! How are you?</p>
+            </div>
+            <span class="contact-time">12:45 PM</span>
+        </div>
+
+        <div class="contact">
+            <img src="https://i.pravatar.cc/100?img=47">
+            <div class="contact-info">
+                <h4>Sara Khan</h4>
+                <p>Thank you so much 😊</p>
+            </div>
+            <span class="contact-time">12:20 PM</span>
+        </div>
+
+        <div class="contact">
+            <img src="https://i.pravatar.cc/100?img=11">
+            <div class="contact-info">
+                <h4>Ahmed Raza</h4>
+                <p>Let's meet tomorrow.</p>
+            </div>
+            <span class="contact-time">11:50 AM</span>
+        </div>
+
+        <div class="contact">
+            <img src="https://i.pravatar.cc/100?img=44">
+            <div class="contact-info">
+                <h4>Fatima</h4>
+                <p>Good morning!</p>
+            </div>
+            <span class="contact-time">10:30 AM</span>
+        </div>
+
+        <div class="contact">
+            <img src="https://i.pravatar.cc/100?img=13">
+            <div class="contact-info">
+                <h4>Usman</h4>
+                <p>Project completed!</p>
+            </div>
+            <span class="contact-time">Yesterday</span>
+        </div>
+
+        <div class="contact">
+            <img src="https://i.pravatar.cc/100?img=68">
+            <div class="contact-info">
+                <h4>Hassan Ali</h4>
+                <p>See you soon 👋</p>
+            </div>
+            <span class="contact-time">Yesterday</span>
+        </div>
+
+        <div class="contact">
+            <img src="https://i.pravatar.cc/100?img=49">
+            <div class="contact-info">
+                <h4>Family Group</h4>
+                <p>Mom: Have a nice day!</p>
+            </div>
+            <span class="contact-time">Yesterday</span>
+        </div>
+
+        <div class="contact">
+            <img src="https://i.pravatar.cc/100?img=15">
+            <div class="contact-info">
+                <h4>Bilal</h4>
+                <p>Photo received 📷</p>
+            </div>
+            <span class="contact-time">Monday</span>
+        </div>
+
+        <div class="contact">
+            <img src="https://i.pravatar.cc/100?img=32">
+            <div class="contact-info">
+                <h4>Tech Friends</h4>
+                <p>Let's build something!</p>
+            </div>
+            <span class="contact-time">Monday</span>
+        </div>
+
+    </div>
+
+    <div class="watermark">
+        WhatsApp Clone — Visual Demo
+    </div>
+
+</div>
+
+<!-- CHAT WINDOW -->
+
+<div class="chat">
+
+    <div class="chat-header">
+
+        <img src="https://i.pravatar.cc/100?img=12">
+
+        <div class="chat-info">
+            <h3>Ali Ahmed</h3>
+            <p>online</p>
+        </div>
+
+        <div class="chat-icons">
+            <span class="icon">⌕</span>
+            <span class="icon">📎</span>
+            <span class="icon">⋮</span>
+        </div>
+
+    </div>
+
+    <!-- CHAT MESSAGES -->
+
+    <div class="messages">
+
+        <div class="date-label">TODAY</div>
+
+        <div class="message received">
+            Assalamu Alaikum!
+            <div class="message-time">12:30 PM</div>
+        </div>
+
+        <div class="message received">
+            How are you doing today?
+            <div class="message-time">12:31 PM</div>
+        </div>
+
+        <div class="message sent">
+            Wa Alaikum Assalam! I'm good.
+            What about you?
+            <div class="message-time">
+                12:32 PM <span class="ticks">✓✓</span>
+            </div>
+        </div>
+
+        <div class="message received">
+            I'm doing great! 😊
+            <div class="message-time">12:35 PM</div>
+        </div>
+
+        <div class="message sent">
+            That's wonderful!
+            <div class="message-time">
+                12:36 PM <span class="ticks">✓✓</span>
+            </div>
+        </div>
+
+        <div class="message received">
+            What are you working on?
+            <div class="message-time">12:40 PM</div>
+        </div>
+
+        <div class="message sent">
+            I'm creating a new website project.
+            <div class="message-time">
+                12:41 PM <span class="ticks">✓✓</span>
+            </div>
+        </div>
+
+        <div class="message received">
+            Wow! That sounds interesting.
+            <div class="message-time">12:43 PM</div>
+        </div>
+
+        <div class="message sent">
+            Thank you! 😎
+            <div class="message-time">
+                12:45 PM <span class="ticks">✓✓</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MESSAGE INPUT DESIGN -->
+
+    <div class="input-area">
+
+        <div class="input-icons">
+            <span class="icon">＋</span>
+            <span class="icon">😊</span>
+        </div>
+
+        <div class="fake-input">
+            Type a message
+        </div>
+
+        <div class="send-icon">
+            🎤
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</body>
+</html>
